@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.imr.nmd.commons.security</groupId>
     <artifactId>commons-security-jwt</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>Commons - Security JWT</name>
     <repositories>
@@ -62,9 +62,10 @@
     </properties>
     <scm>
         <connection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</connection>
-        <url>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</url>
+        <url>https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</url>
         <developerConnection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</developerConnection>
-    </scm>
+      <tag>v0.0.1</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
@@ -79,7 +80,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.4.2</version>
                 <configuration>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <tagNameFormat>{project.version}</tagNameFormat>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <releaseProfiles>releases</releaseProfiles>
                 </configuration>
