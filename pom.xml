@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.imr.nmd.commons.security</groupId>
     <artifactId>commons-security-jwt</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>Commons - Security JWT</name>
     <repositories>
@@ -64,7 +64,8 @@
         <connection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</connection>
         <url>git@github.com:Institute-of-Marine-Research-NMD/commons-jwt-security.git</url>
         <developerConnection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</developerConnection>
-    </scm>
+      <tag>{project.version}</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
