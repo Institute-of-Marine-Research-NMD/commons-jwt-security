@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.imr.nmd.commons.security</groupId>
     <artifactId>commons-security-jwt</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Commons - Security JWT</name>
     <repositories>
@@ -61,9 +61,9 @@
         <slf4j.version>1.7.10</slf4j.version>
     </properties>
     <scm>
-        <connection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</connection>
-        <url>git@github.com:Institute-of-Marine-Research-NMD/commons-jwt-security.git</url>
-        <developerConnection>scm:git:https://github.com/Institute-of-Marine-Research-NMD/commons-jwt-security.git</developerConnection>
+        <connection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/commons-jwt-security.git</connection>
+        <url>scm:git:git@github.com:Institute-of-Marine-Research-NMD/commons-jwt-security.git</url>
+        <developerConnection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/commons-jwt-security.git</developerConnection>
     </scm>
 
     <distributionManagement>
@@ -79,33 +79,46 @@
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.1</version>
             </plugin>
+
             <plugin>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>1.8.1</version>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
                 <configuration>
-                    <tag>${project.version}</tag>
+                    <releaseProfiles>release</releaseProfiles>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <serverId>nexus</serverId>
-                    <nexusUrl>https://build.imr.no/nexus</nexusUrl>
-                    <skipStaging>true</skipStaging>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
