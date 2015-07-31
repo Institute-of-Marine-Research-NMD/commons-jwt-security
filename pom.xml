@@ -67,12 +67,12 @@
       <tag>HEAD</tag>
   </scm>
 
-  <distributionManagement>
-      <repository>
-          <id>nexus-releases</id>
-          <url>https://build.imr.no/nexus/content/repositories/releases</url>
-      </repository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>https://build.imr.no/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>

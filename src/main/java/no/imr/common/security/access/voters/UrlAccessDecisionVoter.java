@@ -13,27 +13,36 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Service;
 
 /**
- * Access decision voter for biotic data. As all data is standard available this
- * voter always returns access.
+ * Generic access descrision voter.
  *
  * @author kjetilf
  */
 @Service
-public class NansenAccessDecisionVoter implements AccessDecisionVoter<FilterInvocation> {
+public class UrlAccessDecisionVoter implements AccessDecisionVoter<FilterInvocation> {
+    /**
+     * Read access role.
+     */
+    private final String readRole;
+    /**
+     * Write access role.
+     */
+    private final String writeRole;
+    /**
+     * Regexp used to filter url requests.
+     */
+    private final String urlRegexp;
 
     /**
-     * Role to have to gain read access to Nansen data.
+     * Initialize.
+     *
+     * @param readRole  Read access role required.
+     * @param writeRole Write access role.
      */
-    public static final String ROLE_READ_ACCESS = "SG-NMD-NANSEN-READ";
-    /**
-     * Role to have to gain write access to Nansen data.
-     */
-    public static final String ROLE_WRITE_ACCESS = "SG-NMD-NANSEN-WRITE";
-
-    /**
-     * Regular expression used to identify Nansen data by it's url.
-     */
-    public static final String REGEXP_NANSEN_URL = ".+/[0-9]*?/[0-9]{4}/1172/[0-9]*?";
+    public UrlAccessDecisionVoter(final String readRole, final String writeRole, final String urlRegexp) {
+        this.readRole = readRole;
+        this.writeRole = writeRole;
+        this.urlRegexp = urlRegexp;
+    }
 
     @Override
     public boolean supports(ConfigAttribute attribute) {
@@ -47,15 +56,15 @@ public class NansenAccessDecisionVoter implements AccessDecisionVoter<FilterInvo
 
     @Override
     public int vote(Authentication auth, FilterInvocation obj, Collection<ConfigAttribute> confAttrs) {
-        if (obj.getFullRequestUrl().matches(REGEXP_NANSEN_URL)) {
+        if (obj.getFullRequestUrl().matches(urlRegexp)) {
             if (obj.getHttpRequest().getMethod().equalsIgnoreCase(HttpMethod.GET.name()) || obj.getHttpRequest().getMethod().equalsIgnoreCase(HttpMethod.HEAD.name())) {
-                if (auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority(NansenAccessDecisionVoter.ROLE_READ_ACCESS))) {
+                if (auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority(this.readRole))) {
                     return ACCESS_GRANTED;
                 } else {
                     return ACCESS_DENIED;
                 }
             } else {
-                if (auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority(NansenAccessDecisionVoter.ROLE_WRITE_ACCESS))) {
+                if (auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority(this.writeRole))) {
                     return ACCESS_GRANTED;
                 } else {
                     return ACCESS_DENIED;
